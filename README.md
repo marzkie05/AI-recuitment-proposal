@@ -1,1 +1,1 @@
-# AI-recuitment-proposal
+# AI-recruitment-proposal
