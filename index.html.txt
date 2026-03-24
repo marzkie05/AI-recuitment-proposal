@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recruitment Specialist | UAE Enterprise Solution</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chosen Palette: Corporate Indigo & Clean White (Inspired by the AI Recruiter UI) -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: High-impact introduction to the platform's value proposition.
+         2. Challenge vs. Solution (Interactive Toggle): Allows users to flip between the "Manual" pain points and the "AI" solutions to actively see the contrast.
+         3. System Walkthrough (Tabbed Interface): A simulated dashboard layout letting users click through the 4 main features (Job Creation, QR, Matching, Analysis) to keep the page compact and exploratory.
+         4. Performance Impact (Data Visualization): Uses Chart.js to quantify the speed and scale benefits (50k CVs).
+         5. Infrastructure & Security: Grid layout emphasizing Oracle Cloud and Data Residency (crucial for UAE clients).
+         6. Investment & Contact: Pricing tiers and developer contact information.
+         Why this structure: It moves the user from "understanding the problem" to "experiencing the product features" to "trusting the security," mirroring a highly effective B2B sales pitch.
+    -->
+    <!-- Visualization & Content Choices: 
+         - Screening Speed Comparison -> Goal: Compare -> Viz: Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Clearly shows the dramatic time-saving of AI vs Manual.
+         - Match Score Demo -> Goal: Inform -> Viz: Doughnut Chart (Chart.js) -> Interaction: Animation on load -> Justification: Replicates the visual feedback of the actual UI.
+         - Feature Navigation -> Goal: Organize -> Viz: Tabbed HTML/CSS Interface -> Interaction: Click to reveal -> Justification: Avoids a massive wall of text and encourages user exploration.
+         - NO SVG/Mermaid used. Standard HTML entities used for icons.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            color: #0f172a; /* Slate 900 */
+        }
+
+        /* STRICT CHART CONTAINER STYLING */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Utility Classes */
+        .tab-active {
+            border-left: 4px solid #4f46e5; /* Indigo 600 */
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-left: 4px solid transparent;
+            color: #475569; /* Slate 600 */
+        }
+        .tab-inactive:hover {
+            background-color: #f1f5f9; /* Slate 100 */
+        }
+        
+        /* Smooth transitions */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-indigo-600 text-white rounded flex items-center justify-center font-bold text-xl">
+                        &#10022; <!-- Sparkle Icon -->
+                    </div>
+                    <span class="font-bold text-xl text-slate-800">AI Recruiter</span>
+                </div>
+                <div>
+                    <a href="#contact" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">Contact Developer &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-indigo-600 text-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Transforming UAE Healthcare & Enterprise Talent Acquisition</h1>
+            <p class="text-xl text-indigo-100 mb-8 leading-relaxed">
+                In large-scale organizational environments, recruitment is no longer just about finding talent; it's about finding it <strong>fast, accurately, and strategically.</strong> The AI Recruitment Specialist eliminates manual CV screening bottlenecks, providing HR teams with instant, data-driven insights.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#walkthrough" class="bg-white text-indigo-600 px-6 py-3 rounded-md font-semibold hover:bg-indigo-50 transition-colors shadow-lg">Explore the System</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: The Challenge vs Solution -->
+    <section id="challenge-solution" class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">The Challenge vs. The AI Solution</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">
+                Discover how traditional recruitment bottlenecks are resolved through our automated, sovereign-cloud platform. Click the toggles below to compare the current state with the AI-driven future.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col items-center text-center">
+                <div class="text-4xl mb-4 text-slate-400">&#128196;</div>
+                <h3 class="text-lg font-bold mb-2">Volume Bottlenecks</h3>
+                <p class="text-slate-600 mb-4">Manual screening of 1,000+ CVs per job posting takes weeks.</p>
+                <div class="mt-auto w-full p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <span class="font-bold text-indigo-700">Solution: Instant Analysis</span>
+                    <p class="text-sm text-indigo-900 mt-1">100% of CVs analyzed in seconds using batch processing.</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col items-center text-center">
+                <div class="text-4xl mb-4 text-slate-400">&#128269;</div>
+                <h3 class="text-lg font-bold mb-2">Missed Qualifications</h3>
+                <p class="text-slate-600 mb-4">High risk of human error missing niche clinical or IT certifications.</p>
+                <div class="mt-auto w-full p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <span class="font-bold text-indigo-700">Solution: Deep Context LLM</span>
+                    <p class="text-sm text-indigo-900 mt-1">AI identifies specific certifications and transparently highlights gaps.</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col items-center text-center">
+                <div class="text-4xl mb-4 text-slate-400">&#128274;</div>
+                <h3 class="text-lg font-bold mb-2">Data Privacy Risks</h3>
+                <p class="text-slate-600 mb-4">Concerns over using public AI tools for sensitive applicant data.</p>
+                <div class="mt-auto w-full p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <span class="font-bold text-indigo-700">Solution: Sovereign Cloud</span>
+                    <p class="text-sm text-indigo-900 mt-1">100% Hosted on Oracle Cloud (UAE Region) keeping data localized.</p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col items-center text-center">
+                <div class="text-4xl mb-4 text-slate-400">&#128188;</div>
+                <h3 class="text-lg font-bold mb-2">Fragmented Tracking</h3>
+                <p class="text-slate-600 mb-4">Applicants apply through multiple channels, causing data chaos.</p>
+                <div class="mt-auto w-full p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <span class="font-bold text-indigo-700">Solution: Unified QR Workflow</span>
+                    <p class="text-sm text-indigo-900 mt-1">Automated intake portals generated dynamically by Job ID.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Functional Showcase -->
+    <section id="walkthrough" class="py-16 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">System Walkthrough</h2>
+                <p class="text-slate-600 max-w-3xl">
+                    Explore the core functionalities of the AI Recruitment Specialist. Select a feature from the menu to see how the platform streamlines the hiring journey from posting to decision.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 min-h-[500px]">
+                <!-- Interactive Tabs -->
+                <div class="w-full md:w-1/3 flex flex-col gap-2">
+                    <button onclick="switchTab('job-creation')" id="btn-job-creation" class="text-left px-6 py-4 rounded-r-lg tab-active transition-all">
+                        <div class="font-bold text-lg mb-1">&#10133; Seamless Job Creation</div>
+                        <div class="text-sm opacity-80">Instant postings & portal generation</div>
+                    </button>
+                    <button onclick="switchTab('qr-portal')" id="btn-qr-portal" class="text-left px-6 py-4 rounded-r-lg tab-inactive transition-all">
+                        <div class="font-bold text-lg mb-1">&#128241; Candidate Portal</div>
+                        <div class="text-sm opacity-80">QR-based unified intake</div>
+                    </button>
+                    <button onclick="switchTab('matching')" id="btn-matching" class="text-left px-6 py-4 rounded-r-lg tab-inactive transition-all">
+                        <div class="font-bold text-lg mb-1">&#127919; Intelligent Matching</div>
+                        <div class="text-sm opacity-80">Visual compatibility scoring</div>
+                    </button>
+                    <button onclick="switchTab('reasoning')" id="btn-reasoning" class="text-left px-6 py-4 rounded-r-lg tab-inactive transition-all">
+                        <div class="font-bold text-lg mb-1">&#128161; Deep Reasoning</div>
+                        <div class="text-sm opacity-80">Executive summaries & gap analysis</div>
+                    </button>
+                </div>
+
+                <!-- Content Display Area -->
+                <div class="w-full md:w-2/3 bg-slate-50 rounded-xl border border-slate-200 p-8 shadow-inner flex items-center justify-center relative overflow-hidden">
+                    
+                    <!-- Content 1: Job Creation -->
+                    <div id="content-job-creation" class="w-full animate-fade-in">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Seamless Job Creation</h3>
+                        <p class="text-slate-600 mb-6">HR managers can instantly create new job postings. The system allows for detailed job descriptions, setting start/expiration dates, and immediate generation of a unique recruitment portal.</p>
+                        
+                        <!-- Mock UI Box -->
+                        <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm max-w-md mx-auto">
+                            <div class="font-bold text-indigo-600 mb-4 flex items-center gap-2">
+                                <span>&#128188;</span> Create New Job Posting
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-500 mb-1">Job Title</label>
+                                    <div class="w-full bg-slate-100 h-8 rounded border border-slate-200 px-3 py-1 text-sm text-slate-400">e.g. Senior Frontend Engineer</div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-500 mb-1">Job Description</label>
+                                    <div class="w-full bg-slate-100 h-24 rounded border border-slate-200 px-3 py-2 text-sm text-slate-400">Paste the full job description here...</div>
+                                </div>
+                                <button class="w-full bg-indigo-600 text-white rounded py-2 text-sm font-bold mt-2 hover:bg-indigo-700">Create Job & Generate QR Portal</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 2: QR Portal -->
+                    <div id="content-qr-portal" class="w-full hidden animate-fade-in">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">The Candidate Portal (QR Entry)</h3>
+                        <p class="text-slate-600 mb-6">Every job posting generates a unique <strong>QR Code</strong>. Candidates scan the code, enter their basic details, and upload their CV. This eliminates manual data entry for HR and creates a "Digital Folder" for each role automatically.</p>
+                        
+                        <!-- Mock UI Box -->
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm w-64 text-center">
+                                <h4 class="font-bold text-slate-800 mb-2">Candidate Portal</h4>
+                                <p class="text-xs text-slate-500 mb-4">Scan this code to upload CV directly.</p>
+                                <div class="w-32 h-32 bg-slate-200 mx-auto flex items-center justify-center border-4 border-slate-800 p-1">
+                                    <div class="w-full h-full border-dashed border-2 border-slate-400 flex items-center justify-center text-slate-400 text-xs text-center p-2">QR Code Graphic</div>
+                                </div>
+                                <div class="mt-4 text-xs text-amber-500 font-semibold flex items-center justify-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> Waiting for candidates...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 3: Matching -->
+                    <div id="content-matching" class="w-full hidden animate-fade-in">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Intelligent Candidate Matching</h3>
+                        <p class="text-slate-600 mb-6">The system doesn't just "read" the CV; it <strong>analyzes</strong> it against your specific Job Description. It automatically tags and highlights the highest-scoring candidates for immediate review.</p>
+                        
+                        <!-- Match Score Chart -->
+                        <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm max-w-sm mx-auto text-center">
+                            <h4 class="font-bold text-slate-800 mb-1">Match Score</h4>
+                            <p class="text-xs text-slate-500 mb-4">Overall compatibility with Job Description</p>
+                            <div class="chart-container" style="height: 200px; max-width: 200px;">
+                                <canvas id="matchScoreChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-sm font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full inline-block">
+                                &#9733; Top Match Detected
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 4: Deep Reasoning -->
+                    <div id="content-reasoning" class="w-full hidden animate-fade-in">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Deep Reasoning & Gap Analysis</h3>
+                        <p class="text-slate-600 mb-6">Clicking an applicant's name reveals a comprehensive, AI-generated breakdown of their fit, strengths, and missing skills.</p>
+                        
+                        <!-- Mock UI Box -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-lg">
+                                <div class="font-bold text-emerald-700 text-sm mb-2">&#10003; Key Strengths</div>
+                                <ul class="text-xs text-emerald-900 space-y-2">
+                                    <li>&bull; Over 3 years relevant IT support experience</li>
+                                    <li>&bull; Bachelor's degree in Computer Science</li>
+                                    <li>&bull; Local UAE work experience</li>
+                                </ul>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-100 p-4 rounded-lg">
+                                <div class="font-bold text-amber-700 text-sm mb-2">&#9888; Areas for Improvement</div>
+                                <ul class="text-xs text-amber-900 space-y-2">
+                                    <li>&bull; No explicit mention of MS Azure</li>
+                                    <li>&bull; Lack of specific details regarding macOS</li>
+                                </ul>
+                            </div>
+                            <div class="col-span-1 sm:col-span-2 bg-slate-800 text-white p-4 rounded-lg">
+                                <div class="font-bold text-indigo-300 text-sm mb-2">&#10022; AI Reasoning</div>
+                                <p class="text-xs text-slate-300 italic">"The candidate meets and exceeds the minimum experience requirement for technical support roles. His educational background provides the necessary theoretical foundation, making him highly suitable despite minor keyword gaps."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Performance Impact (Data Viz) -->
+    <section class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="mb-12 text-center">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">The Impact of Scale</h2>
+            <p class="text-slate-600 max-w-3xl mx-auto">
+                Designed for large hospital groups and enterprise requirements, our system turns insurmountable CV volumes into actionable shortlists instantly.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8">
+            <h3 class="text-xl font-bold text-center text-slate-800 mb-6">Time Required to Screen 1,000 CVs</h3>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-slate-500 mt-6">
+                *Based on an average manual screening time of 3 minutes per CV vs. Gemini 1.5 Flash batch processing.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 4: Technical Infrastructure & Security -->
+    <section class="py-16 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-12 md:text-center">
+                <h2 class="text-3xl font-bold mb-4">Enterprise-Grade Technical Infrastructure</h2>
+                <p class="text-slate-300 max-w-3xl md:mx-auto">
+                    To ensure maximum safety and compliance for UAE-based clients, the system is architected for On-Premises or Private Cloud Deployment.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <div class="text-3xl mb-3">&#128187;</div>
+                    <h4 class="font-bold text-lg mb-2 text-indigo-400">Database</h4>
+                    <p class="text-sm text-slate-300">Hosted on <strong>Oracle Cloud Infrastructure (OCI)</strong> within the UAE region for maximum reliability.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <div class="text-3xl mb-3">&#127984;</div>
+                    <h4 class="font-bold text-lg mb-2 text-indigo-400">Data Residency</h4>
+                    <p class="text-sm text-slate-300">All candidate information and documents stay strictly within the country, ensuring legal compliance.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <div class="text-3xl mb-3">&#9889;</div>
+                    <h4 class="font-bold text-lg mb-2 text-indigo-400">AI Processing</h4>
+                    <p class="text-sm text-slate-300">Utilizes <strong>Gemini 1.5 Flash</strong> for high-speed, cost-effective, and secure batch analysis.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <div class="text-3xl mb-3">&#128295;</div>
+                    <h4 class="font-bold text-lg mb-2 text-indigo-400">Maintenance</h4>
+                    <p class="text-sm text-slate-300">Managed and updated via AI Studio to ensure the latest, most accurate AI models are always active.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Investment & Commercial Model -->
+    <section class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Investment & Commercial Model</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">
+                We offer a flexible subscription model tailored to the volume of your recruitment needs. Detailed pricing is provided upon a formal Statement of Work (SOW).
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Tier 1 -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 hover:border-indigo-300 transition-all">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Professional Tier</h3>
+                <p class="text-slate-500 mb-6 h-12">Designed for specialized clinics, SMEs, and focused recruitment drives.</p>
+                <ul class="space-y-3 mb-8 text-slate-600 text-sm">
+                    <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">&#10003;</span> Up to 5 Active Job Postings</li>
+                    <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">&#10003;</span> Automated QR Workflows</li>
+                    <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">&#10003;</span> Standard AI Matching & Reasoning</li>
+                    <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">&#10003;</span> UAE Data Residency</li>
+                </ul>
+                <button class="w-full py-3 rounded-lg border-2 border-indigo-600 text-indigo-600 font-bold hover:bg-indigo-50 transition-colors">Request Quote</button>
+            </div>
+            
+            <!-- Tier 2 -->
+            <div class="bg-indigo-600 rounded-2xl shadow-xl border border-indigo-700 p-8 text-white relative transform md:-translate-y-4">
+                <div class="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">Recommended</div>
+                <h3 class="text-2xl font-bold mb-2">Enterprise Tier</h3>
+                <p class="text-indigo-200 mb-6 h-12">Designed for large hospital groups (e.g., SSMC, PureHealth) with massive volume requirements.</p>
+                <ul class="space-y-3 mb-8 text-indigo-50 text-sm">
+                    <li class="flex items-center gap-2"><span class="text-amber-400 font-bold">&#10003;</span> Unlimited Job Postings</li>
+                    <li class="flex items-center gap-2"><span class="text-amber-400 font-bold">&#10003;</span> High-Volume Capacity (Up to 50k CVs/day)</li>
+                    <li class="flex items-center gap-2"><span class="text-amber-400 font-bold">&#10003;</span> Dedicated Oracle Cloud Instance</li>
+                    <li class="flex items-center gap-2"><span class="text-amber-400 font-bold">&#10003;</span> Priority Batch Processing</li>
+                </ul>
+                <button class="w-full py-3 rounded-lg bg-white text-indigo-600 font-bold hover:bg-slate-100 transition-colors shadow-md">Request Enterprise Quote</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Footer -->
+    <footer id="contact" class="bg-slate-50 border-t border-slate-200 py-12 px-4 mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6">Let’s Transform Your Hiring Strategy Today.</h3>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 inline-block text-left mb-8">
+                <p class="font-bold text-lg text-slate-800 border-b border-slate-100 pb-2 mb-3">Mark Ernie Garche Escobillo</p>
+                <p class="text-sm text-indigo-600 font-semibold mb-4">AI Project Coordinator & Developer</p>
+                <ul class="text-sm text-slate-600 space-y-2 mb-4">
+                    <li><strong>Specialization:</strong> AI for Data Analysis, App Building, Workflow Automation</li>
+                    <li><strong>Credentials:</strong> BS Computer Science, Google AI Professional Certified</li>
+                    <li><strong>Experience:</strong> 5+ years in UAE Healthcare & IT sectors</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 mt-4 pt-4 border-t border-slate-100 text-sm">
+                    <a href="mailto:markmay.escobillo@gmail.com" class="text-slate-700 hover:text-indigo-600 flex items-center gap-2">
+                        <span>&#9993;</span> markmay.escobillo@gmail.com
+                    </a>
+                    <a href="tel:+971524316916" class="text-slate-700 hover:text-indigo-600 flex items-center gap-2">
+                        <span>&#9742;</span> +971 52 431 6916
+                    </a>
+                </div>
+            </div>
+            
+            <p class="text-xs text-slate-400">&copy; 2026 AI Recruitment Specialist Prototype. Built for UAE Enterprise environments.</p>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        // State Management
+        let appState = {
+            activeTab: 'job-creation',
+            chartsInitialized: false
+        };
+
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            // Update state
+            appState.activeTab = tabId;
+
+            // Define all tabs and content areas
+            const tabs = ['job-creation', 'qr-portal', 'matching', 'reasoning'];
+            
+            tabs.forEach(id => {
+                const btn = document.getElementById(`btn-${id}`);
+                const content = document.getElementById(`content-${id}`);
+                
+                if (id === tabId) {
+                    // Activate clicked tab
+                    btn.classList.remove('tab-inactive');
+                    btn.classList.add('tab-active');
+                    content.classList.remove('hidden');
+                } else {
+                    // Deactivate others
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                    content.classList.add('hidden');
+                }
+            });
+
+            // Initialize charts only when Matching tab is clicked (to ensure canvas is visible)
+            if (tabId === 'matching' && !appState.chartsInitialized) {
+                initMatchChart();
+                appState.chartsInitialized = true;
+            }
+        }
+
+        // Initialize Chart.js Visualizations
+        function initCharts() {
+            // Setup Performance Bar Chart (Always visible section)
+            const ctxPerf = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctxPerf, {
+                type: 'bar',
+                data: {
+                    labels: ['Manual Screening', 'AI Batch Processing'],
+                    datasets: [{
+                        label: 'Time Required (Hours)',
+                        data: [50, 0.25], // 1000 * 3mins = 3000mins = 50 hours vs ~15 mins batch
+                        backgroundColor: [
+                            '#94a3b8', // Slate 400
+                            '#4f46e5'  // Indigo 600
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + ' Hours';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Hours to Process 1,000 CVs' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Setup Match Score Doughnut Chart (Rendered when tab opens)
+        function initMatchChart() {
+            const ctxMatch = document.getElementById('matchScoreChart').getContext('2d');
+            new Chart(ctxMatch, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Match', 'Gap'],
+                    datasets: [{
+                        data: [75, 25],
+                        backgroundColor: ['#f59e0b', '#f1f5f9'], // Amber 500, Slate 100
+                        borderWidth: 0,
+                        cutout: '80%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { animateScale: true, animateRotate: true },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                },
+                plugins: [{
+                    id: 'textCenter',
+                    beforeDraw: function(chart) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 80).toFixed(2);
+                        ctx.font = "bold " + fontSize + "em Inter, sans-serif";
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = "#0f172a";
+
+                        var text = "75%",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            });
+        }
+
+        // Initialize globally visible charts on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+        });
+
+    </script>
+</body>
+</html>
